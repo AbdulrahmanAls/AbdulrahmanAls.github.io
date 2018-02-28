@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style/style.css" type="text/css">
+  <title>Neighborhood Map</title>
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <span>search <input placeholder="search for locations" type="search" data-bind="value:searchFilter, valueUpdate: 'keyup'"/></span>
+
+    <ul data-bind="foreach: markers">
+            <li>
+                <span data-bind="text: title"></span>
+            </li>
+    </ul>
+
+
+
+
+
+
+  </div>
+  <div id="main">
+    <span onclick="openNav()">&#9776;</span>
+  </div>
+  <div id="map"></div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script async defer src="js/knockout-3.4.2.js"></script>
+  <script async defer src="js/app.js"></script>
+  <script async defer onerror="googleMapsError()"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5MRM3fKur2RAPBKcKqyuEolmpSKYG5v4&v=3&callback=start">
+  </script>
+</body>
+
+
+
+</html>

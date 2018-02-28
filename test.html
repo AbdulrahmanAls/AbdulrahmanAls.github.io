@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/knockout-3.4.2.js"></script>
+</head>
+<body>
+  <p>First name: <strong data-bind="text: firstName"></strong></p>
+
+  <p>First name: <input data-bind="value: firstName, valueUpdate: 'keyup'" /></p>
+  <p>First name: <input data-bind="value:firstName, valueUpdate:'keyup'"/></p>
+
+
+
+
+<script>
+var locations = [
+    {title: 'Alhamra park ', location: {lat: 25.973062, lng: 43.754495}},
+    {title: 'Afran Alhatab Bakery ', location: {lat: 26.000588, lng: 43.731621}},
+    {title: 'فور قايز ', location: {lat: 25.997484, lng: 43.727867}},
+    {title: 'Panda', location: {lat: 25.998518, lng: 43.7316344}},
+    {title: 'كودو', location: {lat: 25.998950, lng: 43.729622}},
+    {title: 'دانكن دونات',location:{lat:26.000603, lng:43.731903}},
+    {title: 'albadaya fitness',location:{lat:25.996592, lng:43.723349}}
+];
+// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
+function AppViewModel() {
+    this.firstName = ko.observable("Bert");
+    this.lastName = ko.observable("Bertington");
+
+    this.fullName = ko.computed(function() {
+        return this.firstName() + " " + this.lastName();
+    }, this);
+}
+
+// Activates knockout.js
+ko.applyBindings(new AppViewModel());
+</script>
+
+
+</body>
+</html>
