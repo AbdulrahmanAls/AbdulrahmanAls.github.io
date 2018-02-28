@@ -13,13 +13,13 @@ function closeNav() {
     document.getElementById("main").style.marginLeft= "0";
 }
 
-var map;
+var map, largeInfowindow, bounds;
 var markers = [];
 
+//this is data for Foursquare use in request
 var ClientID= 'client_id=Q4N5FYMLVE0PY2VTNKC2UR4WOPWAPV5KJLLT4JALCNGM2RKJ';
-
 var ClientSecret ='client_secret=50VBA5QUMZD0J3N3DAXGZVA50Y4SELQOBVMYL5NP2E1LWMY3';
-
+// this is the data
 var locations = [
     {title: 'Alhamra park ', location: {lat: 25.973062, lng: 43.754495}},
     {title: 'Afran Alhatab Bakery ', location: {lat: 26.000588, lng: 43.731621}},
@@ -30,25 +30,8 @@ var locations = [
     {title: 'albadaya fitness',location:{lat:25.996592, lng:43.723349}}
 ];
 
-
-// function initMap() {
-//
-//     map = new google.maps.Map(document.getElementById('map'), {
-//         center: {lat: 25.975277, lng: 43.74577},
-//         zoom: 14
-//
-//     });
-//
-//     var largeInfowindow = new google.maps.InfoWindow();
-//     var bounds = new google.maps.LatLngBounds();
-//
-//
-// };
-
-
-
+// create map and set the marker
 function CreateMap () {
-
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 25.975277, lng: 43.74577},
@@ -56,14 +39,14 @@ function CreateMap () {
 
     });
 
-    var largeInfowindow = new google.maps.InfoWindow();
-    var bounds = new google.maps.LatLngBounds();
+     largeInfowindow = new google.maps.InfoWindow();
+     bounds = new google.maps.LatLngBounds();
 
 
   for (var i = 0; i < locations.length; i++) {
       // Get the position from the location array.
       var position = locations[i].location;
-
+      // Get the title
       var title = locations[i].title;
       // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
@@ -74,19 +57,18 @@ function CreateMap () {
           id: i
       });
 
-      // Push the marker to our array of markers.
       // Create an onclick event to open an infowindow at each marker.
-
       marker.addListener('click', function() {
         this.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout((function() {
             this.setAnimation(null);
-        }).bind(this), 2000);
+        }).bind(this), 800);
           populateInfoWindow(this, largeInfowindow);
 
       });
-      bounds.extend(marker.position);
 
+      bounds.extend(marker.position);
+      // Push the marker to our array of markers.
       markers.push(marker);
 
   }
@@ -101,6 +83,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
 
         var respondSearch, respondPhotos, URLSearch, URLPhotos, htmlContent = '';
+            //make search url
 
             URLSearch = 'https://api.foursquare.com/v2/venues/search?ll='+ marker.position.lat() +',' + marker.position.lng()+'&' + ClientID + '&'+
             ClientSecret+ '&v=20180225&query='+ marker.title;
@@ -122,14 +105,18 @@ function populateInfoWindow(marker, infowindow) {
         //   +'</span></p><p><span>categories: '+respondSearch.categories[0].pluralName+'</span></p></div>';
         // }
 
+
+        //search for marker data from foursquare
         $.getJSON(URLSearch).done(function (data) {
             respondSearch = data.response.venues[0] ;
+            //set data in html
             htmlContent +=  '<div id="searchData"> <h3>'+respondSearch.name+'</h3><p><span>lat:'+
              respondSearch.location.lat+' lng:'+respondSearch.location.lng+'</span></p><p><span>country: '+respondSearch.location.country
              +'</span></p><p><span>categories: '+respondSearch.categories[0].pluralName+'</span></p></div>';
-
+             // use id location to search for the place photos
              URLPhotos = 'https://api.foursquare.com/v2/venues/'+ respondSearch.id + '?'+ ClientID + '&'+
              ClientSecret+ '&v=20180225';
+             // search for ID photo and collect the data
              $.getJSON(URLPhotos).done(function (data) {
                respondPhotos = data.response.venue;
                if (respondPhotos.photos.count >= 1) {
@@ -150,10 +137,6 @@ function populateInfoWindow(marker, infowindow) {
             alert('foursquare data not download');
 
         });
-
-
-
-
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick',function(){
@@ -165,14 +148,35 @@ function populateInfoWindow(marker, infowindow) {
 function googleMapsError() {
     alert("google map can not load.");
 }
-
+// this ViewModel is Temporary
 var viewModel = {
     location:ko.observableArray(markers),
     searchFilter:ko.observable('')
 }
 
+//https://gist.github.com/hinchley/5973926
+
+// var viewModel = {
+//     location:ko.observableArray(markers),
+//     searchFilter:ko.observable(''),
+//     Item:ko.observableArray([]),
+//
+//     search: function (value){
+//       viewModel.Item.removeAll();
+//       if(value == '') return;
+//
+//       for(var i = 0 ; i <= location().length; i++){
+//           if (location()[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+//               location()[i].setVisible(true);
+//               viewModel.Item.push(location()[i]);
+//       }else location()[i].setVisible(false);
+//     }
+//
+//
+// }
+
 function start() {
     CreateMap();
-    console.log(markers);
+    //viewModel.searchFilter.subscribe(viewModel.search);
     ko.applyBindings(viewModel);
 }

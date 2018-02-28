@@ -13,17 +13,12 @@
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <span>search <input placeholder="search for locations" type="search" data-bind="value:searchFilter, valueUpdate: 'keyup'"/></span>
-
+    <!-- make the data bind here  -->
     <ul data-bind="foreach: markers">
             <li>
-                <span data-bind="text: title"></span>
+                <a href='#'><span data-bind="event:{click:populateInfoWindow($data,largeInfowindow)},text: title"></span></a>
             </li>
     </ul>
-
-
-
-
-
 
   </div>
   <div id="main">
