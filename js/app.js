@@ -82,7 +82,7 @@ function CreateMap () {
         setTimeout((function() {
             this.setAnimation(null);
         }).bind(this), 2000);
-          populateInfoWindow(this, largeInfowindow,position);
+          populateInfoWindow(this, largeInfowindow);
 
       });
       bounds.extend(marker.position);
@@ -95,14 +95,14 @@ function CreateMap () {
 
 }
 
-function populateInfoWindow(marker, infowindow, position) {
+function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
 
         var respondSearch, respondPhotos, URLSearch, URLPhotos, htmlContent = '';
 
-            URLSearch = 'https://api.foursquare.com/v2/venues/search?ll='+ position.lat +',' + position.lng+'&' + ClientID + '&'+
+            URLSearch = 'https://api.foursquare.com/v2/venues/search?ll='+ marker.position.lat() +',' + marker.position.lng()+'&' + ClientID + '&'+
             ClientSecret+ '&v=20180225&query='+ marker.title;
 
         //https://stackoverflow.com/questions/2765411/is-it-possible-to-set-asyncfalse-to-getjson-call
