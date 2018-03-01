@@ -100,15 +100,7 @@ function CreateMap() {
       id: i
     });
 
-    // Create an onclick event to open an infowindow at each marker.
-    marker.addListener('click', function() {
-      this.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout((function() {
-        this.setAnimation(null);
-      }).bind(this), 800);
-      populateInfoWindow(this, largeInfowindow);
-
-    });
+      makeInfoWindo(marker);
 
     bounds.extend(marker.position);
     // Push the marker to our array of markers.
@@ -117,6 +109,20 @@ function CreateMap() {
   }
   // Extend the boundaries of the map for each marker
   map.fitBounds(bounds);
+
+}
+
+// Create an onclick event to open an infowindow at each marker.
+
+function makeInfoWindo(marker) {
+    marker.addListener('click', function() {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout((function() {
+            this.setAnimation(null);
+        }).bind(this), 800);
+        populateInfoWindow(this, largeInfowindow);
+
+    });
 
 }
 
