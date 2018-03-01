@@ -164,7 +164,7 @@ function populateInfoWindow(marker, infowindow) {
         respondPhotos = data.response.venue;
         if (respondPhotos.photos.count >= 1) {
           htmlContent += '<div id="searchPhotos"><img src=' + respondPhotos.photos.groups[0].items[2].prefix + '200x200' +
-            respondPhotos.photos.groups[0].items[2].suffix + ' alt=' + respondSearch.name + '></div>'
+            respondPhotos.photos.groups[0].items[2].suffix + ' alt=' + respondSearch.name + '></div>';
         } else {
           htmlContent += "<div id='searchPhotos'><h4>There is no Image</h4>></div>";
         }
