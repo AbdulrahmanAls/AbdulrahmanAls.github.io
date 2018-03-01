@@ -12,13 +12,18 @@
 
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <span>search <input placeholder="search for locations" type="search" data-bind="value:searchFilter, valueUpdate: 'keyup'"/></span>
     <!-- make the data bind here  -->
-    <ul data-bind="foreach: markers">
-            <li>
-                <a href='#'><span data-bind="event:{click:populateInfoWindow($data,largeInfowindow)},text: title"></span></a>
-            </li>
+    <form>
+      <input id="search" type="search" name="search" placeholder="Search place" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" />
+    </form>
+
+    <ul data-bind="foreach: location">
+      <a href="#">
+        <li data-bind="text: title,event:{click:populateInfoWindow($data,largeInfowindow)}"></li>
+      </a>
     </ul>
+
+  </div>
 
   </div>
   <div id="main">
@@ -29,8 +34,7 @@
   <script src="js/jquery-3.3.1.min.js"></script>
   <script async defer src="js/knockout-3.4.2.js"></script>
   <script async defer src="js/app.js"></script>
-  <script async defer onerror="googleMapsError()"
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5MRM3fKur2RAPBKcKqyuEolmpSKYG5v4&v=3&callback=start">
+  <script async defer onerror="googleMapsError()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5MRM3fKur2RAPBKcKqyuEolmpSKYG5v4&v=3&callback=start">
   </script>
 </body>
 
