@@ -16,8 +16,8 @@ var map, largeInfowindow, bounds;
 var markers = [];
 
 //this is data for Foursquare use in request
-var ClientID = 'client_id=0LXRQDRBRZIL0UWECN4XTY025BQLWDYSWEEWM5QWR1O11N0G';
-var ClientSecret = 'client_secret=VTZ3SFNF3HDHH5G1XKZZD45QURR2C2DPL1E4I5XZLAGA2O3I';
+var ClientID = 'client_id=Q4N5FYMLVE0PY2VTNKC2UR4WOPWAPV5KJLLT4JALCNGM2RKJ';
+var ClientSecret = 'client_secret=50VBA5QUMZD0J3N3DAXGZVA50Y4SELQOBVMYL5NP2E1LWMY3';
 // this is the data
 var locations = [{
     title: 'Alhamra park ',
@@ -186,6 +186,8 @@ function populateInfoWindow(marker, infowindow) {
       alert('foursquare data not download');
 
     });
+    // make the map center
+    map.panTo(marker.getPosition());
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
