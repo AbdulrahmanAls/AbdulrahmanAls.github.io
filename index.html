@@ -19,7 +19,7 @@
 
     <ul data-bind="foreach: location">
       <a href="#">
-        <li data-bind="text: title,event:{click:populateInfoWindow($data,largeInfowindow)}"></li>
+        <li id='item' data-bind="text: title,event:{click:function(){populateInfoWindow($data,largeInfowindow)}}"></li>
       </a>
     </ul>
 
