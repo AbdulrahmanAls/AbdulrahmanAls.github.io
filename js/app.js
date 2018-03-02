@@ -137,24 +137,6 @@ function populateInfoWindow(marker, infowindow) {
     URLSearch = 'https://api.foursquare.com/v2/venues/search?ll=' + marker.position.lat() + ',' + marker.position.lng() + '&' + ClientID + '&' +
       ClientSecret + '&v=20180225&query=' + marker.title;
 
-    //https://stackoverflow.com/questions/2765411/is-it-possible-to-set-asyncfalse-to-getjson-call
-    // $.ajax({
-    //   type:'GET',
-    //   url:URLSearch,
-    //   dataType:'json',
-    //   async:false,
-    // }).done(function(data){
-    //   respondSearch = data.response.venues[0] ;
-    // }).fail(function(){
-    //   alert('foursquare data not download');
-    // });
-    // if(typeof respondSearch !== 'undefined'){
-    //   htmlContent +=  '<div id="searchData"> <h3>'+respondSearch.name+'</h3><p><span>lat:'+
-    //   respondSearch.location.lat+' lng:'+respondSearch.location.lng+'</span></p><p><span>country: '+respondSearch.location.country
-    //   +'</span></p><p><span>categories: '+respondSearch.categories[0].pluralName+'</span></p></div>';
-    // }
-
-
     //search for marker data from foursquare
     $.getJSON(URLSearch).done(function(data) {
       respondSearch = data.response.venues[0];
@@ -199,14 +181,8 @@ function populateInfoWindow(marker, infowindow) {
 function googleMapsError() {
   alert("google map can not load.");
 }
-// this ViewModel is Temporary
-// var viewModel = {
-//     location:ko.observableArray(markers),
-//     searchFilter:ko.observable('')
-// }
 
-//https://gist.github.com/hinchley/5973926
-// make the knockout search
+
 var viewModel = {
   markers: ko.observableArray(markers),
   location: ko.observableArray([]),
@@ -215,7 +191,7 @@ var viewModel = {
   search: function(value) {
     viewModel.location.removeAll();
 
-    for (var i = 0; i <= viewModel.markers().length; i++) {
+    for (var i = 0; i < viewModel.markers().length; i++) {
       if (viewModel.markers()[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
         viewModel.markers()[i].setVisible(true);
         viewModel.location.push(viewModel.markers()[i]);

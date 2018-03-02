@@ -27,9 +27,9 @@
 
   </div>
   <div id="main">
-    <span onclick="openNav()">&#9776;</span>
+    <span data-bind="event:{click:function(){openNav()}}">&#9776;</span>
   </div>
-  <div id="map"></div>
+  <div id="map" class="map-height"></div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-debug.js"></script>

@@ -5,11 +5,12 @@ body {
   transition: background-color .5s;
 }
 
-#map {
+.map-height {
   height: 100%;
 }
 
-html, body {
+html,
+body {
   font-family: Arial, sans-serif;
   height: 100%;
   margin: 0;
