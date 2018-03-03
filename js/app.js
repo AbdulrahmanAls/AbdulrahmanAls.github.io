@@ -14,6 +14,7 @@ function closeNav() {
 
 var map, largeInfowindow, bounds;
 var markers = [];
+var markersShowfirst = [];
 
 //this is data for Foursquare use in request
 var ClientID = 'client_id=Q4N5FYMLVE0PY2VTNKC2UR4WOPWAPV5KJLLT4JALCNGM2RKJ';
@@ -104,6 +105,7 @@ function CreateMap() {
 
     bounds.extend(marker.position);
     // Push the marker to our array of markers.
+    markersShowfirst.push(marker);
     markers.push(marker);
 
   }
@@ -185,12 +187,12 @@ function googleMapsError() {
 
 var viewModel = {
   markers: ko.observableArray(markers),
-  location: ko.observableArray(locations),
+  location: ko.observableArray(markersShowfirst),
   query: ko.observable(''),
 
   search: function(value) {
     viewModel.location.removeAll();
-
+    
     for (var i = 0; i < viewModel.markers().length; i++) {
       if (viewModel.markers()[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
         viewModel.markers()[i].setVisible(true);
