@@ -190,6 +190,7 @@ function googleMapsError() {
 // the interruption each other
 // and the functionality is the same
 // I solve by making independent  array
+
 var viewModel = {
   markers: ko.observableArray(markers),
   location: ko.observableArray(markersShowfirst),
@@ -206,6 +207,7 @@ var viewModel = {
     }
   }
 };
+
 
 // start the program here
 function start() {

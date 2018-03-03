@@ -14,18 +14,15 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <!-- make the data bind here  -->
     <form>
-      <input id="search" type="search" name="search" placeholder="Search place" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" />
+      <input id="search" type="search" name="search" placeholder="Search place" data-bind="textInput: query" autocomplete="off" />
     </form>
 
     <ul data-bind="foreach: location">
-      <a href="#">
         <li id='item' data-bind="text: title,event:{click:function(){populateInfoWindow($data,largeInfowindow)}}"></li>
-      </a>
     </ul>
 
   </div>
 
-  </div>
   <div id="main">
     <span data-bind="event:{click:function(){openNav()}}">&#9776;</span>
   </div>
