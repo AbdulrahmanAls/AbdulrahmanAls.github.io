@@ -185,6 +185,11 @@ function googleMapsError() {
 }
 
 
+// when the  markers: ko.observableArray(markers),
+// and location: ko.observableArray(markers),
+// the interruption each other
+// and the functionality is the same
+// I solve by making independent  array
 var viewModel = {
   markers: ko.observableArray(markers),
   location: ko.observableArray(markersShowfirst),
@@ -192,7 +197,7 @@ var viewModel = {
 
   search: function(value) {
     viewModel.location.removeAll();
-    
+
     for (var i = 0; i < viewModel.markers().length; i++) {
       if (viewModel.markers()[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
         viewModel.markers()[i].setVisible(true);
