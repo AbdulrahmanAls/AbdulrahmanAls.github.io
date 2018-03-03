@@ -185,7 +185,7 @@ function googleMapsError() {
 
 var viewModel = {
   markers: ko.observableArray(markers),
-  location: ko.observableArray([]),
+  location: ko.observableArray(locations),
   query: ko.observable(''),
 
   search: function(value) {
