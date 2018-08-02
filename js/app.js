@@ -153,8 +153,8 @@ function populateInfoWindow(marker, infowindow) {
       $.getJSON(URLPhotos).done(function(data) {
         respondPhotos = data.response.venue;
         if (respondPhotos.photos.count >= 1) {
-          htmlContent += '<div id="searchPhotos"><img src=' + respondPhotos.photos.groups[0].items[2].prefix + '200x200' +
-            respondPhotos.photos.groups[0].items[2].suffix + ' alt=' + respondSearch.name + '></div>';
+          htmlContent += '<div id="searchPhotos"><img src=' + respondPhotos.photos.groups[0].items[0].prefix + '300x300' +
+            respondPhotos.photos.groups[0].items[0].suffix + ' alt=' + respondSearch.name + '></div>';
         } else {
           htmlContent += "<div id='searchPhotos'><h4>There is no Image</h4>></div>";
         }
